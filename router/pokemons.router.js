@@ -71,6 +71,20 @@ router.post("/update/:id", async (req, res, next) => {
   }
 });
 
+router.put("/:id", async (req, res, next) => {
+  try {
+    const pokemonId = req.params.id;
+    const pokemonToUpdate = await db.Pokemon.findByPk(pokemonId);
+
+    if (pokemonToUpdate === null) return res.sendStatus(404);
+    await pokemonToUpdate.update(req.body);
+
+    res.json(pokemonToUpdate);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // route to DELETE /pokemons
 router.delete("/:id", async (req, res, next) => {
   try {
