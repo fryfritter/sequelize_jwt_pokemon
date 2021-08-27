@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 
 const pokemonRouter = require("./router/pokemons.router.js");
 const trainerRouter = require("./router/trainer.router.js");
+require("dotenv").config();
 
 db.sequelize.sync();
 
