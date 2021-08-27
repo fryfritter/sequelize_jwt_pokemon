@@ -14,4 +14,18 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.get("/", async (req, res, next) => {
+  try {
+    // const trainers = await db.Trainer.findAll();
+
+    const trainers = await db.Trainer.findAll({
+      attributes: {
+        exclude: ["password"],
+      },
+    });
+    res.status(200).json(trainers);
+  } catch (error) {
+    next(error);
+  }
+});
 module.exports = router;
