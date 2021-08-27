@@ -28,4 +28,20 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
+
+router.get("/search/:username", async (req, res, next) => {
+  try {
+    const username = req.params.username;
+    // [db.Sequelize.Op.iLike] allows you to do case-insensitive + partial querying
+    // e.g. "Sa" will return Samantha, Samuel..
+    const trainer = await db.Trainer.findAll({
+      where: { username: { [db.Sequelize.Op.iLike]: "%" + username + "%" } },
+    });
+    res.send(trainer);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 module.exports = router;
