@@ -8,9 +8,9 @@ const router = express.Router();
 router.get("/:id", async (req, res, next) => {
   try {
     const id = req.params.id;
-    const pokemons = await db.Pokemon.findByPk(id);
-
-    res.status(200).json(pokemons);
+    const pokemon = await db.Pokemon.findByPk(id);
+    if (pokemon === null) res.sendStatus(404);
+    else res.status(200).json(pokemon);
   } catch (error) {
     next(error);
   }
