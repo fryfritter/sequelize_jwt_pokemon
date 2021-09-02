@@ -23,7 +23,7 @@ const createJWTToken = (username) => {
 
   // Method 2
   const payload = { username };
-  const token = jwt.sign(payload, secret, { expiresIn: "1m" });
+  const token = jwt.sign(payload, secret, { expiresIn: "8d" });
 
   // alternatively
   // jwt.sign(payload, secret, { expiresIn: "7d" });

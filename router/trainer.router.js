@@ -22,7 +22,12 @@ router.get("/", async (req, res, next) => {
       attributes: {
         exclude: ["password"],
       },
+      include: {
+        model: pokemon,
+      },
     });
+
+    console.log(trainers);
     res.status(200).json(trainers);
   } catch (error) {
     next(error);
@@ -44,8 +49,38 @@ router.get("/search/:username", auth, async (req, res, next) => {
   }
 });
 
+// route to GET /pokemons
+router.get("/pokemons", auth, async (req, res, next) => {
+  try {
+    const trainer = await db.Trainer.findOne({
+      where: {
+        username: req.user.username,
+      },
+      raw: true,
+    });
+    const trainerProfile = await db.Trainer.findOne({
+      where: { id: trainer.id },
+      include: { model: db.Pokemon },
+    });
+
+    //  const pokemons = await db.Trainer.findOne({
+    //   include: {
+    //     model: db.Pokemon,
+    //     trainerId: trainer.id,
+    //   },
+    // }).Pokemons;
+
+    console.log(trainerProfile.Pokemons);
+
+    res.status(200).json(trainerProfile.Pokemons);
+  } catch (error) {
+    next(error);
+  }
+});
+
 const bcrypt = require("bcryptjs");
 const createJWTToken = require("../config/jwt");
+const pokemon = require("../db/models/pokemon");
 
 router.post("/login", async (req, res, next) => {
   try {
