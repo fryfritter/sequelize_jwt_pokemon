@@ -18,14 +18,7 @@ router.get("/", async (req, res, next) => {
   try {
     // const trainers = await db.Trainer.findAll();
 
-    const trainers = await db.Trainer.findAll({
-      attributes: {
-        exclude: ["password"],
-      },
-      include: {
-        model: pokemon,
-      },
-    });
+    const trainers = await db.Trainer.findAll();
 
     console.log(trainers);
     res.status(200).json(trainers);
