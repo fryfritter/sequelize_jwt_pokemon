@@ -97,15 +97,4 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
-// route to GET /pokemons
-router.get("/:id/pokemons", async (req, res, next) => {
-  try {
-    const trainerId = req.params.id;
-
-    const pokemons = await db.Pokemon.findAll();
-    res.status(200).json(pokemons);
-  } catch (error) {
-    next(error);
-  }
-});
 module.exports = router;
