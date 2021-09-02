@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Trainer.hasMany(models.Pokemon, {
+        foreignKey: { name: "trainerId" },
+      });
     }
   }
   Trainer.init(
