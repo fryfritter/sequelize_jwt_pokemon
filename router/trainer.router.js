@@ -22,9 +22,6 @@ router.get("/", async (req, res, next) => {
       attributes: {
         exclude: ["password"],
       },
-      include: {
-        model: pokemon,
-      },
     });
 
     console.log(trainers);
